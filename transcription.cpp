@@ -11,9 +11,11 @@ if (int(windowSize) == false ||  int(maxHorizon) == false) stop("The arguments w
 
 
 // [[Rcpp::export]]
- cppFunction('List tsPartition(NumericVector y, int windowSize, int maxHorizon){
+cppFunction('Rcpp::Range tsPartition(NumericVector y, int windowSize, int maxHorizon){
 int x= (y.size() - windowSize) / maxHorizon;
 List L = rep(List::create(NA_INTEGER),x);
-  return(x);
-    }')
+int start = 1;
+Rcpp::Range s=Rcpp::seq(start, start + windowSize -1);
+return s; 
+ }')
  
