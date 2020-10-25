@@ -12,23 +12,19 @@ if (int(windowSize) == false ||  int(maxHorizon) == false) stop("The arguments w
 
 //tsPartition function
 
-// [[Rcpp::export]]
-cppFunction('Rcpp::Range tsPartition(NumericVector y, int windowSize, int maxHorizon){
-int x= (y.size() - windowSize) / maxHorizon;
-List L = rep(List::create(NA_INTEGER),x);
-int start = 1;
-Rcpp::Range s=Rcpp::seq(start, start + windowSize -1);
-return s; 
- }')
-            
-// [[Rcpp:export]]
-cppFunction('int one(int rolling, NumericVector x,int windowSize,int maxHorizon){
+cppFunction('Rcpp::Range tsPartition(NumericVector rolling, NumericVector x,NumericVector windowSize,NumericVector maxHorizon){
 NumericVector a={0};
-int b = x.size() - windowSize - maxHorizon + 1;
-int c = (x.size() - windowSize) / maxHorizon;
-NumericVector  res = ifelse(rolling == a, x.size() - windowSize - maxHorizon + 1 , 2.0);
-return b;
+NumericVector b = x.size() - windowSize - maxHorizon + 1;
+NumericVector c = (x.size() - windowSize) / maxHorizon;
+NumericVector numPartitions = ifelse(rolling == a, b , c);
+double x1 = numPartitions[0];
+double x2 = windowSize[0];
+List L = rep(List::create(NA_INTEGER),x1);
+int start=1;
+Rcpp::Range trainIndices=Rcpp::seq(start, start + x2 -1);
+return trainIndices;
 }') 
+
 
 //Core CVTS function
  
