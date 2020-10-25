@@ -20,6 +20,15 @@ int start = 1;
 Rcpp::Range s=Rcpp::seq(start, start + windowSize -1);
 return s; 
  }')
+            
+// [[Rcpp:export]]
+cppFunction('int one(int rolling, NumericVector x,int windowSize,int maxHorizon){
+NumericVector a={0};
+int b = x.size() - windowSize - maxHorizon + 1;
+int c = (x.size() - windowSize) / maxHorizon;
+NumericVector  res = ifelse(rolling == a, x.size() - windowSize - maxHorizon + 1 , 2.0);
+return b;
+}') 
 
 //Core CVTS function
  
@@ -35,5 +44,8 @@ cppFunction('List vector(int numRow){
 List L = rep(List::create(NA_INTEGER),numRow);
 return L;
 }')
+            
+
+
 
   
