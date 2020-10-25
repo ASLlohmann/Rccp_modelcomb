@@ -19,3 +19,10 @@ Rcpp::Range s=Rcpp::seq(start, start + windowSize -1);
 return s; 
  }')
  
+// [[Rcpp::export]]             
+cppFunction('NumericMatrix m3(int numRow, int MaxHorizon){
+NumericVector v = rep({NA_REAL},numRow*MaxHorizon);
+NumericMatrix m3(numRow , MaxHorizon, v.begin() );
+return m3;
+}')
+  
