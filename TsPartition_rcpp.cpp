@@ -1,6 +1,17 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+// [[Rcpp::export]]
+cppFunction('List forecastm(List slices, Function f, NumericVector x, double h) {
+   for(int i = 0; i < n; ++i) {
+    Rcpp::Range trainIndices=Rcpp::seq(start, start + x2 -1);
+    Rcpp::Range  testIndices=Rcpp::seq(start + x2, start + x2 + h - 1);
+    slices[i] = List::create(Named("TrainIndices")=trainIndices,Named("TestIndices")=testIndices);
+    start += 1;
+  }
+  Function forecast("forecast");
+  return  forecast(f(x),Named("h")=2);
+}')
 
 
 // [[Rcpp::export]]
